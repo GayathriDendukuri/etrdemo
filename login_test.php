@@ -21,7 +21,7 @@ $oLogin = new Login();
 
 /* Values from the form*/
 @$action = (isset($_GET['action'])) ? trim($_GET['action']) : trim($_POST['action']);
-$sMsg = "&nbsp;";
+$sMsg = "&nbsp;&nbsp;";
 
 switch($action){
 	case "login":	
