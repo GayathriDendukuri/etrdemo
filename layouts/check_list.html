@@ -1,0 +1,130 @@
+<?php
+/******************************************************************
+ * Ideabytes Software India Pvt Ltd.                              *
+ * 50 Jayabheri Enclave, Gachibowli, HYD                          *
+ * Created Date : 04/02/2014                                      *
+ * Created By : Pradeep G                                         *
+ * Vision : Project Sparkle                                       *
+ * Modified by : Pradeep G     Date : 05/02/2014    Version : V1  *
+ * Description : Home page - content area                         *
+ *****************************************************************/
+
+/* Include template header file */
+include("layouts/common/header.html");
+?>
+
+<style>
+td{
+    font-size:12px;
+}
+</style>
+<!-- start content-outer ........................................................................................................................START -->
+<div id="content-outer">
+<!-- start content -->
+<div id="content">
+
+<!--  start page-heading -->
+<div id="page-heading">
+    <h2>Check List Management</h2>
+</div>
+<!-- end page-heading -->
+
+<table border="0" width="100%" cellpadding="0" cellspacing="0" id="content-table">
+<tr>
+    <th rowspan="3" class="sized"><img src="layouts/images/shared/side_shadowleft.jpg" width="20" height="300" alt="" /></th>
+    <th class="topleft"></th>
+    <td id="tbl-border-top">&nbsp;</td>
+    <th class="topright"></th>
+    <th rowspan="3" class="sized"><img src="layouts/images/shared/side_shadowright.jpg" width="20" height="300" alt="" /></th>
+</tr>
+<tr>
+<td id="tbl-border-left"></td>
+<td>
+    <!--  start content-table-inner ...................................................................... START -->
+    <div id="content-table-inner">
+
+        <!--  start table-content  -->
+        <div id="table-content">
+            <span id ='msgplace'>
+            <?php echo $sMsg; ?>
+            </span>
+
+            <!--  start product-table ..................................................................................... -->
+            <form id="mainform" action="">
+                <table border="0" width="100%" cellpadding="0" cellspacing="0" id="product-table">
+                    <thead>
+                    <tr>
+                        <th width="5%" class="table-header-options"><a>S.No</a> </th>
+                        <th width="50%" class="table-header-options line-left"><a href="">Question </a>	</th> 
+						<th width="50%" class="table-header-options line-left"><a href="">Description </a>	</th>
+						<th width="50%" class="table-header-options line-left"><a href="">Notes for Yes </a>	</th>
+						<th width="50%" class="table-header-options line-left"><a href="">Notes for No </a>	</th>
+                        <!--<th width="5%" class="table-header-options line-left"><a href="">Status</a></th>-->						
+                        <th width="5%" class="table-header-options line-left"><a href="">Actions</a></th>
+                    </tr>
+                    </thead>
+                    <tbody id="listusers">
+                    <?php
+                    if($count > 0){                       
+                        $sno = 1;
+                        foreach($cityList as $city){                          
+							 if($city["status"] == 0){
+								$stauts = "<a href='city_management.php?action=changeStatus&status=1&id=".$city['id']."'><img src='layouts/images/red.png' alt='' title='' border='0' height='22' width='22' /></a>";
+							}else{
+								$stauts = "<a href='city_management.php?action=changeStatus&status=0&id=".$city['id']."'><img src='layouts/images/green.png' alt='' title='' border='0' height='22' width='22' /></a>";
+							}
+                            echo '<tr>
+								<td>'.($start_limit+$sno).'</td>
+								<td>'.$city["question"].'</td>
+								<td>'.$city["description"].'</td>
+								<td>'.$city["notes_for_yes"].'</td>
+								<td>'.$city["notes_for_no"].'</td>
+								<td>
+									<a title="Edit" class="icon-5 info-tooltip" href="check_list.php?action=editForm&id='.$city["id"].'"></a>
+									<a title="Delete" class="icon-2 info-tooltip ask" href="check_list.php?action=delete&id='.$city["id"].'"></a>									
+								</td>
+								
+                            </tr>';
+                            $sno++;
+                        }
+                    }else{
+                        echo "<tr><td colspan='6'><center>No records found</center></td></tr>";
+                    }
+                    ?>
+                    </tbody>
+                </table>
+				<a href="check_list.php?action=addForm"><input type="button" class="form-add"  id="submit" name="btncontact" value="Add Customer"/></a>
+                <!--  end product-table................................... -->
+            </form>
+        </div>
+        <!--  end content-table  -->
+
+        <div class="clear"></div><br><br>
+        <?php
+        //Display pagging
+        if($count > 0){
+            echo doPages(ROW_PER_PAGE, 'check_list.php', $searchstring, $count);
+        }
+        ?>
+    </div>
+    <!--  end content-table-inner ............................................END  -->
+</td>
+<td id="tbl-border-right"></td>
+</tr>
+<tr>
+    <th class="sized bottomleft"></th>
+    <td id="tbl-border-bottom">&nbsp;</td>
+    <th class="sized bottomright"></th>
+</tr>
+</table>
+<div class="clear">&nbsp;</div>
+
+</div>
+<!--  end content -->
+<div class="clear">&nbsp;</div>
+</div>
+<!--  end content-outer........................................................END -->
+<?php
+/* Include template header file */
+include("common/footer.html");
+?>
